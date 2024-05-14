@@ -1,4 +1,6 @@
 using DataAccessLayer.Data;
+using DataAccessLayer.Repositories;
+using DataAccessLayer.UniteOfWork;
 
 namespace MVC_Interview_Task
 {
@@ -10,7 +12,14 @@ namespace MVC_Interview_Task
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<StaticDataContext>();
+
+            //DBContext 
+            builder.Services.AddSingleton<StaticDataContext>();
+
+            //Repositories
+            builder.Services.AddScoped<IStudentRepo, StudentRepo>();
+            builder.Services.AddScoped<ISubjectRepo, SubjectRepo>();
+            builder.Services.AddScoped<IUnitOfWork, UOW>();
 
             var app = builder.Build();
 

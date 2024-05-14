@@ -17,7 +17,7 @@ namespace DataAccessLayer.Repositories
         void Delete(int id);
     }
 
-    internal class SubjectRepo : ISubjectRepo
+    public class SubjectRepo : ISubjectRepo
     {
 
         private readonly StaticDataContext SD;
@@ -29,27 +29,35 @@ namespace DataAccessLayer.Repositories
 
         public void Add(Subject entity)
         {
-            
+            SD.subjects.Add(entity);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Subject subject = GetById(id);
+            if (subject != null)
+            {
+                SD.subjects.Remove(subject);
+            }
         }
 
         public List<Subject> GetAll()
         {
-            throw new NotImplementedException();
+            return SD.subjects;
         }
 
         public Subject GetById(int id)
         {
-            throw new NotImplementedException();
+            return SD.subjects.FirstOrDefault(s => s.Id == id);
         }
 
         public void Update(Subject entity)
         {
-            throw new NotImplementedException();
+            Subject subject = GetById(entity.Id);
+            if (subject != null)
+            {
+                subject.Name = entity.Name;
+            }
         }
     }
 }

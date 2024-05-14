@@ -17,7 +17,7 @@ namespace DataAccessLayer.Repositories
         void Delete(int id);
     }
 
-    internal class StudentRepo : IStudentRepo
+    public class StudentRepo : IStudentRepo
     {
         StaticDataContext SD;
 

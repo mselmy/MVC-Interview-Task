@@ -17,6 +17,7 @@ namespace BusinessLogicLayer.Models
         public string Name { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Date of Birth")]
         public DateOnly Date { get; set; }
 
