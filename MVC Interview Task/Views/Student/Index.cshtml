@@ -44,9 +44,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 
 @* Display list of students *@
@@ -58,7 +55,7 @@
 else
 {
     <table class="table table-hover table-bordered text-center border border-4 vertical-align: middle">
-        <thead>
+        <thead class="table-Info">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)

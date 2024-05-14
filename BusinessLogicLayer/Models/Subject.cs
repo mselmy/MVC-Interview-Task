@@ -11,9 +11,10 @@ namespace BusinessLogicLayer.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        [MinLength(3)]
-        [MaxLength(50)]
+        [Required(ErrorMessage = "Name is required.")]
+        [MinLength(3, ErrorMessage = "Name must be at least 3 characters long.")]
+        [MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters.")]
+        [RegularExpression(@"^[a-zA-Z\s-]+$", ErrorMessage = "Name can only contain letters, spaces, and hyphens.")]
         public string Name { get; set; }
     }
 }

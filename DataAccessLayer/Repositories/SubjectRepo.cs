@@ -29,6 +29,7 @@ namespace DataAccessLayer.Repositories
 
         public void Add(Subject entity)
         {
+            entity.Id = SD.subjects.Max(s => s.Id) + 1;
             SD.subjects.Add(entity);
         }
 

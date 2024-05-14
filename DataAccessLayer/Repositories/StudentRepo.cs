@@ -28,6 +28,7 @@ namespace DataAccessLayer.Repositories
 
         public void Add(Student entity)
         {
+            entity.Id = SD.students.Max(s => s.Id) + 1;
             SD.students.Add(entity);
         }
 
