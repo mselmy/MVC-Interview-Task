@@ -21,9 +21,16 @@ namespace MVC_Interview_Task.Controllers
             return View();
         }
 
-        public void Add(Student std)
+        public IActionResult Add(Student std)
         {
             uow.StudentRepo.Add(std);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id) 
+        {
+            uow.StudentRepo.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }
