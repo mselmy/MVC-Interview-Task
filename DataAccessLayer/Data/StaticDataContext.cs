@@ -9,60 +9,22 @@ namespace DataAccessLayer.Data
 {
     public class StaticDataContext
     {
-        static List<Subject> subjects = new List<Subject>
+        public StaticDataContext()
         {
-            new Subject { Id = 1, Name = "Arabic" },
-            new Subject { Id = 2, Name = "English" },
-            new Subject { Id = 3, Name = "Science" },
-            new Subject { Id = 4, Name = "History" },
-        };
+            subjects.Add(new Subject { Id = 1, Name = "Arabic" });
+            subjects.Add(new Subject { Id = 2, Name = "English" });
+            subjects.Add(new Subject { Id = 3, Name = "Science" });
+            subjects.Add(new Subject { Id = 4, Name = "History" });
 
-        List<Student> students = new List<Student>
-        {
-            new Student 
-            { 
-                Id = 1, 
-                Name = "Ahmed", 
-                Date = new DateOnly(1990, 1, 1), 
-                Address = "Cairo", 
-                Subjects = [ subjects[0], subjects[1]]
-            },
+            students.Add(new Student { Id = 1, Name = "Ahmed", Date = new DateOnly(2000, 1, 1), Address = "Cairo", Subjects = [subjects[0], subjects[1]] });
+            students.Add(new Student { Id = 2, Name = "Ali", Date = new DateOnly(2001, 2, 2), Address = "Giza", Subjects = [subjects[2], subjects[3]] });
+            students.Add(new Student { Id = 3, Name = "Mohamed", Date = new DateOnly(2002, 3, 3), Address = "Alex", Subjects = [subjects[0], subjects[2]] });
+            students.Add(new Student { Id = 4, Name = "Omar", Date = new DateOnly(2003, 4, 4), Address = "Aswan", Subjects = [subjects[1], subjects[3]] });
+            students.Add(new Student { Id = 5, Name = "Mahmoud", Date = new DateOnly(2004, 5, 5), Address = "Luxor", Subjects = [subjects[0], subjects[3]] });
+        }
 
-            new Student
-            {
-                Id = 2,
-                Name = "Ali",
-                Date = new DateOnly(1995, 2, 2),
-                Address = "Giza",
-                Subjects = [subjects[2], subjects[3]]
-            },
+        public List<Subject> subjects { get; } = new List<Subject>();
 
-            new Student
-            {
-                Id = 3,
-                Name = "Mohamed",
-                Date = new DateOnly(2000, 3, 3),
-                Address = "Alex",
-                Subjects = [subjects[0], subjects[2]]
-            },
-
-            new Student
-            {
-                Id = 4,
-                Name = "Omar",
-                Date = new DateOnly(2005, 4, 4),
-                Address = "Aswan",
-                Subjects = [subjects[1], subjects[3]]
-            },
-
-            new Student
-            {
-                Id = 5,
-                Name = "Khaled",
-                Date = new DateOnly(2010, 5, 5),
-                Address = "Luxor",
-                Subjects = [subjects[0], subjects[3]]
-            }
-        };
+        public List<Student> students { get; } = new List<Student>();
     }
 }

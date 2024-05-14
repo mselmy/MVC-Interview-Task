@@ -10,4 +10,8 @@
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UniteOfWork\" />
+  </ItemGroup>
+
 </Project>

@@ -1,3 +1,5 @@
+using DataAccessLayer.Data;
+
 namespace MVC_Interview_Task
 {
     public class Program
@@ -8,6 +10,7 @@ namespace MVC_Interview_Task
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<StaticDataContext>();
 
             var app = builder.Build();
 
