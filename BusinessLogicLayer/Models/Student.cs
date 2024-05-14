@@ -25,7 +25,7 @@ namespace BusinessLogicLayer.Models
         public DateOnly Date { get; set; }
 
         [Required(ErrorMessage = "Address is required.")]
-        [MinLength(10, ErrorMessage = "Address must be at least 10 characters long.")]
+        [MinLength(3, ErrorMessage = "Address must be at least 10 characters long.")]
         [MaxLength(100, ErrorMessage = "Address cannot exceed 100 characters.")]
         public string Address { get; set; }
 

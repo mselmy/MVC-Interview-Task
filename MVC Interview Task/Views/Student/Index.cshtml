@@ -1,7 +1,7 @@
 ﻿@model BusinessLogicLayer.Models.Student
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Students";
     var students = ViewBag.Students as IEnumerable<Student>;
     var subjects = ViewBag.Subjects as IEnumerable<Subject>;
 }
@@ -96,7 +96,7 @@ else
                         }
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", "Student", new { id = student.Id }) -
+                        @Html.ActionLink("Edit", "Edit", "Student", new { id = student.Id}) -
                         @Html.ActionLink("Delete", "Delete", "Student", new { id = student.Id })
                     </td>
                 </tr>

@@ -15,10 +15,16 @@ namespace MVC_Interview_Task.Controllers
 
         public IActionResult Index()
         {
-            var students = uow.StudentRepo.GetAll();
-            ViewBag.Students = students;
+            ViewBag.Students = uow.StudentRepo.GetAll();
             ViewBag.Subjects = uow.SubjectRepo.GetAll();
             return View();
+        }
+
+        public IActionResult Edit(int id) 
+        {
+            ViewBag.Subjects = uow.SubjectRepo.GetAll();
+            Student std = uow.StudentRepo.GetById(id);
+            return View(std);
         }
 
         public IActionResult Add(Student std)
@@ -30,6 +36,12 @@ namespace MVC_Interview_Task.Controllers
         public IActionResult Delete(int id) 
         {
             uow.StudentRepo.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Update(Student std)
+        {
+            uow.StudentRepo.Update(std);
             return RedirectToAction("Index");
         }
     }
