@@ -19,11 +19,13 @@ namespace BusinessLogicLayer.Models
         [Required]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date)]
         public DateOnly Date { get; set; }
 
         [Required]
         public string Address { get; set; }
 
-        public ICollection<Subject> Subjects { get; set; } = new HashSet<Subject>();
+        [Display(Name = "Subjects")]
+        public ICollection<int> SubjectsId { get; set; } = new HashSet<int>();
     }
 }

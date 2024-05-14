@@ -58,7 +58,7 @@ namespace DataAccessLayer.Repositories
                 student.Name = entity.Name;
                 student.Date = entity.Date;
                 student.Address = entity.Address;
-                student.Subjects = entity.Subjects;
+                student.SubjectsId = entity.SubjectsId;
             }
         }
     }

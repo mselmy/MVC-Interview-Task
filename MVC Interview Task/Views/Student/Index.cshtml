@@ -4,7 +4,6 @@
     ViewData["Title"] = "Index";
     var students = ViewBag.Students as IEnumerable<Student>;
     var subjects = ViewBag.Subjects as IEnumerable<Subject>;
-    SelectList selectList = new SelectList(subjects, "Id", "Name");
 }
 
 <h2>Create Student</h2>
@@ -32,7 +31,7 @@
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Subjects" class="control-label"></label>
+                <label asp-for="SubjectsId" class="control-label"></label>
                 @foreach (var subject in subjects)
                 {
                     <input type="checkbox" name="Subjects" value="subject.id" /> @subject.Name
@@ -71,7 +70,7 @@ else
                     @Html.DisplayNameFor(model => model.Address)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Subjects)
+                    @Html.DisplayNameFor(model => model.SubjectsId)
                 </th>
                 <th></th>
             </tr>
@@ -90,7 +89,14 @@ else
                         @Html.DisplayFor(modelItem => student.Address)
                     </td>
                     <td>
-                        @student.Subjects.Select(s => s.Name).Aggregate((current, next) => current + " - " + next)
+                        @if(student.SubjectsId.Count() == 0)
+                        {
+                            <text>No subject</text>
+                        }
+                        else
+                        {
+                            @subjects.Where(s => student.SubjectsId.Contains(s.Id)).Select(s => s.Name).Aggregate((s1, s2) => s1 + " - " + s2)
+                        }
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit") -
