@@ -31,17 +31,17 @@
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
                 <div class="form-group d-flex">
-                    <label asp-for="SubjectsId" class="control-label me-3 mt-auto mb-auto"></label>
+                    <label asp-for="StudentSubjects[0].Subject.Name" class="control-label me-3 mt-auto mb-auto"></label>
                     <div class="d-flex flex-column">
                         @foreach (var subject in subjects)
                         {
-                            @if (Model.SubjectsId.Contains(subject.Id))
+                            @if ( Model.StudentSubjects.Any(s => s.SubjectId == subject.Id) )
                             {
-                                <span><input type="checkbox" name="SubjectsId" value="@subject.Id" checked /> @subject.Name</span>
+                                <span><input type="checkbox" name="SelectedSubjectIds" value="@subject.Id" checked /> @subject.Name</span>
                             }
                             else
                             {
-                                <span><input type="checkbox" name="SubjectsId" value="@subject.Id" /> @subject.Name</span>
+                                <span><input type="checkbox" name="SelectedSubjectIds" value="@subject.Id" /> @subject.Name</span>
                             }
                         }
                     </div>

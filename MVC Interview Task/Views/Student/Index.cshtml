@@ -15,7 +15,6 @@
             <form asp-action="Add">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <input asp-for="Id" value="0" class="form-control" hidden />
                 </div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
@@ -33,11 +32,20 @@
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
                 <div class="form-group d-flex">
-                    <label asp-for="SubjectsId" class="control-label mr-3 mt-auto mb-auto"></label>
+                    <label asp-for="StudentSubjects" class="control-label mr-3 mt-auto mb-auto"></label>
                     <div class="d-flex flex-column">
-                        @foreach (var subject in subjects)
+                        @if (subjects == null || !subjects.Any())
                         {
-                            <span class="mr-1"><input type="checkbox" name="SubjectsId" class="mr-1" value="@subject.Id" /> @subject.Name</span>
+                            <text>No subject found</text>
+                        }
+                        else
+                        {
+                            foreach (var subject in subjects)
+                            {
+                                <span class="mr-1">
+                                    <input type="checkbox" name="SelectedSubjectIds" class="mr-1" value="@subject.Id" /> @subject.Name
+                                </span>
+                            }
                         }
                     </div>
                 </div>
@@ -51,7 +59,7 @@
 
     @* Display list of students *@
     @* Check if the list is empty *@
-    @if (students.Count() == 0)
+    @if (students == null || !students.Any())
     {
         <p>No student found</p>
     }
@@ -70,7 +78,7 @@
                         @Html.DisplayNameFor(model => model.Address)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.SubjectsId)
+                        @Html.DisplayNameFor(model => model.StudentSubjects[0].Subject.Name)
                     </th>
                     <th>
                         Actions
@@ -91,13 +99,13 @@
                             @Html.DisplayFor(modelItem => student.Address)
                         </td>
                         <td>
-                            @if (student.SubjectsId.Count() == 0)
+                            @if (student.StudentSubjects == null || !student.StudentSubjects.Any())
                             {
                                 <text>No subject</text>
                             }
                             else
                             {
-                                @subjects.Where(s => student.SubjectsId.Contains(s.Id)).Select(s => s.Name).Aggregate((s1, s2) => s1 + " - " + s2)
+                                <text>@string.Join(" - ", student.StudentSubjects.Select(s => s.Subject.Name))</text>
                             }
                         </td>
                         <td>

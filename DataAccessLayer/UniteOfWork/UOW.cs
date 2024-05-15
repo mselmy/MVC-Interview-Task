@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Data;
+﻿using BusinessLogicLayer.Models;
+using DataAccessLayer.Data;
 using DataAccessLayer.Repositories;
 using System;
 using System.Collections.Generic;
@@ -10,40 +11,54 @@ namespace DataAccessLayer.UniteOfWork
 {
     public interface IUnitOfWork
     {
-        IStudentRepo StudentRepo { get; }
-        ISubjectRepo SubjectRepo { get; }
+        IStudentRepo StudentRepoInc { get; }
+        IGenericRepo<Student> StudentRepo { get; }
+        IGenericRepo<Subject> SubjectRepo { get; }
     }
 
     public class UOW : IUnitOfWork
     {
-        private readonly StaticDataContext SD;
-        public IStudentRepo studentRepo;
-        public ISubjectRepo subjectRepo;
+        private readonly SqlDbContext db;
+        IStudentRepo StudentRepoIncl;
+        public IGenericRepo<Student> studentRepo;
+        public IGenericRepo<Subject> subjectRepo;
 
-        public UOW(StaticDataContext SD)
+        public UOW(SqlDbContext db)
         {
-            this.SD = SD;
+            this.db = db;
         }
 
-        public IStudentRepo StudentRepo
+        public IStudentRepo StudentRepoInc
+        {
+            get
+            {
+                if (StudentRepoIncl == null)
+                {
+                    StudentRepoIncl = new StudentRepo(db);
+                }
+                return StudentRepoIncl;
+            }
+        }
+
+        public IGenericRepo<Student> StudentRepo
         {
             get
             {
                 if(studentRepo == null)
                 {
-                    studentRepo = new StudentRepo(SD);
+                    studentRepo = new GenericRepo<Student>(db);
                 }
                 return studentRepo;
             }
         }
 
-        public ISubjectRepo SubjectRepo
+        public IGenericRepo<Subject> SubjectRepo
         {
             get
             {
                 if (subjectRepo == null)
                 {
-                    subjectRepo = new SubjectRepo(SD);
+                    subjectRepo = new GenericRepo<Subject>(db);
                 }
                 return subjectRepo;
             }

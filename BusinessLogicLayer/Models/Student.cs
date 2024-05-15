@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace BusinessLogicLayer.Models
 {
     public class Student
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Required(ErrorMessage = "Id is required.")]
+        //[Remote("IsIdAvailable", "Students", ErrorMessage = "Id already exists.")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
@@ -30,7 +35,6 @@ namespace BusinessLogicLayer.Models
         [RegularExpression(@"^[^\s]+(\s+[^\s]+)*$", ErrorMessage = "Address cannot start or end with spaces.")]
         public string Address { get; set; }
 
-        [Display(Name = "Subjects")]
-        public ICollection<int> SubjectsId { get; set; } = new HashSet<int>();
+        public virtual List<StudentSubject> StudentSubjects { get; set; } = new List<StudentSubject>();
     }
 }

@@ -1,6 +1,8 @@
+using BusinessLogicLayer.Models;
 using DataAccessLayer.Data;
 using DataAccessLayer.Repositories;
 using DataAccessLayer.UniteOfWork;
+using Microsoft.EntityFrameworkCore;
 
 namespace MVC_Interview_Task
 {
@@ -14,11 +16,14 @@ namespace MVC_Interview_Task
             builder.Services.AddControllersWithViews();
 
             //DBContext 
-            builder.Services.AddSingleton<StaticDataContext>();
+            //builder.Services.AddSingleton<StaticDataContext>();
+            builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             //Repositories
-            builder.Services.AddScoped<IStudentRepo, StudentRepo>();
-            builder.Services.AddScoped<ISubjectRepo, SubjectRepo>();
+            //builder.Services.AddScoped<IStudentRepo, StudentRepo>();
+            //builder.Services.AddScoped<ISubjectRepo, SubjectRepo>();
+            builder.Services.AddScoped<IGenericRepo<Student>, GenericRepo<Student>>();
+            builder.Services.AddScoped<IGenericRepo<Subject>, GenericRepo<Subject>>();
             builder.Services.AddScoped<IUnitOfWork, UOW>();
 
             var app = builder.Build();

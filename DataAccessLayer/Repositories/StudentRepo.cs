@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.Models;
 using DataAccessLayer.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,57 +11,27 @@ namespace DataAccessLayer.Repositories
 {
     public interface IStudentRepo
     {
-        List<Student> GetAll();
-        Student GetById(int id);
-        void Add(Student entity);
-        void Update(Student entity);
-        void Delete(int id);
+        Task<List<Student>> GetAll();
+        Task<Student> GetById(int id);
     }
 
     public class StudentRepo : IStudentRepo
     {
-        StaticDataContext SD;
+        private readonly SqlDbContext db;
 
-        public StudentRepo(StaticDataContext SD)
+        public StudentRepo(SqlDbContext db)
         {
-            this.SD = SD;
+            this.db = db;
         }
 
-        public void Add(Student entity)
+        public async Task<List<Student>> GetAll()
         {
-            entity.Id = SD.students.Max(s => s.Id) + 1;
-            SD.students.Add(entity);
+            return await db.Students.Include(s => s.StudentSubjects).ThenInclude(ss => ss.Subject).ToListAsync();
         }
 
-        public void Delete(int id)
+        public async Task<Student> GetById(int id)
         {
-            Student student = GetById(id);
-            if (student != null)
-            {
-                SD.students.Remove(student);
-            }
-        }
-
-        public List<Student> GetAll()
-        {
-            return SD.students;
-        }
-
-        public Student GetById(int id)
-        {
-            return SD.students.FirstOrDefault(s => s.Id == id);
-        }
-
-        public void Update(Student entity)
-        {
-            Student student = GetById(entity.Id);
-            if (student != null)
-            {
-                student.Name = entity.Name;
-                student.Date = entity.Date;
-                student.Address = entity.Address;
-                student.SubjectsId = entity.SubjectsId;
-            }
+            return await db.Students.Include(s => s.StudentSubjects).ThenInclude(ss => ss.Subject).FirstOrDefaultAsync(s => s.Id == id);
         }
     }
 }
