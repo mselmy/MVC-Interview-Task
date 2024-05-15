@@ -22,6 +22,7 @@ When the user clicks "edit" on any student in the Grid View, the system should n
 ### Prerequisites
 - .NET SDK
 - Visual Studio or Visual Studio Code
+- SQL Server
 
 ### Getting Started
 
@@ -30,7 +31,19 @@ When the user clicks "edit" on any student in the Grid View, the system should n
    git clone <repository_url>
    cd <repository_name>
     ```
-2. **Build and run the project**
+2. **Set up the database**
+   - Create a new database in SQL Server.
+   - Update the connection string in appsettings.json to point to your SQL Server database.
+    ```sh
+    "ConnectionStrings": {
+     "DefaultConnection": "Server=your_server_name;Database=your_database_name;User Id=your_username;Password=your_password;"
+      }
+    ```
+ 3. **Apply Migrations**
+    ```sh
+    dotnet ef database update
+    ```
+4. **Build and run the project**
     ```sh
     dotnet build
     dotnet run
@@ -49,4 +62,4 @@ When the user clicks "edit" on any student in the Grid View, the system should n
 - ASP.NET Core MVC
 - JavaScript
 - HTML/CSS
-- Static Lists for Data Storage
+- SQL Server
