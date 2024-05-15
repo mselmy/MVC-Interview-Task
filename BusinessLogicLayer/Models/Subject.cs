@@ -14,7 +14,7 @@ namespace BusinessLogicLayer.Models
         [Required(ErrorMessage = "Name is required.")]
         [MinLength(3, ErrorMessage = "Name must be at least 3 characters long.")]
         [MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters.")]
-        [RegularExpression(@"^[a-zA-Z\s-]+$", ErrorMessage = "Name can only contain letters, spaces, and hyphens.")]
+        [RegularExpression(@"^[a-zA-Z]+([a-zA-Z\s-]*[a-zA-Z]+)?$", ErrorMessage = "Name can only contain letters, spaces, and hyphens, and cannot start or end with a space.")]
         public string Name { get; set; }
     }
 }

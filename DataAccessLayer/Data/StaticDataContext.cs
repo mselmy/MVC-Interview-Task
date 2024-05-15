@@ -20,7 +20,6 @@ namespace DataAccessLayer.Data
             students.Add(new Student { Id = 2, Name = "Ali", Date = new DateOnly(2001, 2, 2), Address = "Giza", SubjectsId = [3, 4] });
             students.Add(new Student { Id = 3, Name = "Mohamed", Date = new DateOnly(2002, 3, 3), Address = "Alex", SubjectsId = [1, 2]});
             students.Add(new Student { Id = 4, Name = "Omar", Date = new DateOnly(2003, 4, 4), Address = "Aswan", SubjectsId = [1, 3] });
-            students.Add(new Student { Id = 5, Name = "Mahmoud", Date = new DateOnly(2004, 5, 5), Address = "Luxor", SubjectsId = [] });
         }
 
         public List<Subject> subjects { get; } = new List<Subject>();
